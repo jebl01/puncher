@@ -1,4 +1,4 @@
-package jebl01.puncher;
+package io.github.jebl01.puncher;
 
 
 import java.util.Optional;

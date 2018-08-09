@@ -1,4 +1,4 @@
-package jebl01.puncher;
+package io.github.jebl01.puncher;
 
 import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;

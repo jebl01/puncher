@@ -1,5 +1,6 @@
-package jebl01.puncher;
+package io.github.jebl01.puncher;
 
+import static io.github.jebl01.puncher.Puncher.forPattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,9 +10,12 @@ import java.util.Optional;
 import org.junit.Test;
 
 public class PuncherTest {
+    public static Puncher SHORT_KEY_PUNCHER = forPattern("^(?<id>[^:]+):(?<version>[^:]+)$");
+    public static Puncher LONG_KEY_PUNCHER = forPattern("^(?<type>[^:]+):(?<id>[^:]+):(?<version>[^:]+)$");
+
     @Test
     public void canGetMatch() {
-        final Puncher puncher = Punchers.forPattern("Hola (?<name>\\w+)");
+        final Puncher puncher = forPattern("Hola (?<name>\\w+)");
 
         final Optional<String> result = puncher.punch("Hola drEvil", "name");
         assertTrue(result.isPresent());
@@ -20,7 +24,7 @@ public class PuncherTest {
 
     @Test
     public void willReturnEmptyOnNoMatch() {
-        final Puncher puncher = Punchers.forPattern("Hola (?<name>\\w+)");
+        final Puncher puncher = forPattern("Hola (?<name>\\w+)");
 
         final Optional<String> result = puncher.punch("Hi drEvil", "name");
         assertFalse(result.isPresent());
@@ -28,9 +32,8 @@ public class PuncherTest {
 
     @Test
     public void canParseUsingCompositePuncher() {
-        final Puncher puncher = Punchers
-                .forPattern("Hola (?<name>\\w+)")
-                .then(Punchers.forPattern("Hi (?<name>\\w+)"));
+        final Puncher puncher = forPattern("Hola (?<name>\\w+)")
+                .then(forPattern("Hi (?<name>\\w+)"));
 
         final Optional<String> result1 = puncher.punch("Hola drEvil", "name");
         final Optional<String> result2 = puncher.punch("Hi drEvil", "name");
@@ -43,15 +46,15 @@ public class PuncherTest {
 
     @Test
     public void canParseUsingBuildInKeyParsers() {
-        final Puncher keyPuncher = Punchers.SHORT_KEY_PUNCHER.then(Punchers.LONG_KEY_PUNCHER);
+        final Puncher keyPuncher = SHORT_KEY_PUNCHER.then(LONG_KEY_PUNCHER);
 
-        final Optional<String> resultShort = keyPuncher.punch("article:12345", "id");
-        final Optional<String> resultLong = keyPuncher.punch("ab:article:12345", "id");
+        final Optional<String> resultShort = keyPuncher.punch("id1:3", "id");
+        final Optional<String> resultLong = keyPuncher.punch("book:id1:3", "id");
 
         assertTrue(resultShort.isPresent());
         assertTrue(resultLong.isPresent());
 
-        resultShort.ifPresent(id -> assertEquals("12345", id));
-        resultLong.ifPresent(id -> assertEquals("12345", id));
+        resultShort.ifPresent(id -> assertEquals("id1", id));
+        resultLong.ifPresent(id -> assertEquals("id1", id));
     }
 }
