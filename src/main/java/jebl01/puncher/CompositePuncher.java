@@ -15,8 +15,6 @@ public class CompositePuncher extends Puncher {
     @Override
     public Optional<String> punch(final String string, final String group) {
         final Optional<String> resultFirst = first.punch(string, group);
-
         return resultFirst.isPresent() ? resultFirst : second.punch(string, group);
     }
-
 }
