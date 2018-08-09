@@ -7,6 +7,16 @@ Regular expressions have been used since the dawn of days, and even if I have ha
 
 Puncher is configured with patterns containing named groups. Punchers can also be combined into a composite puncher, to break regex up into more manageable parts.
 
+**Get it from Maven Central**
+
+```xml
+<dependency>
+    <groupId>io.github.jebl01</groupId>
+    <artifactId>puncher</artifactId>
+    <version>0.1</version>
+</dependency>
+```
+
 ### Usage
 Say we have entities with composite keys like `<id>:<version>`. One way of parsing this is by splitting on `:` and expecting something like `String[2]` in return.
 An other way is to write some regexp code to accomplish the same.
