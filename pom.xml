@@ -4,7 +4,7 @@
 
     <groupId>io.github.jebl01</groupId>
     <artifactId>puncher</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 
     <name>Puncher</name>
     <description>Regex based string puncher</description>
