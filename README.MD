@@ -7,7 +7,8 @@ Regular expressions have been used since the dawn of days, and even if I have ha
 
 Puncher is configured with patterns containing named groups. Punchers can also be combined into a composite puncher, to break regex up into more manageable parts.
 
-**Get it from Maven Central**
+**Get it from Maven Central**<br>
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.jebl01/puncher.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:io.github.jebl01%20AND%20a:puncher)
 
 ```xml
 <dependency>
