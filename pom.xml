@@ -8,7 +8,7 @@
 
     <name>Puncher</name>
     <description>Regex based string puncher</description>
-    <url>https://github.com/io.github.jebl01/puncher</url>
+    <url>https://github.com/jebl01/puncher</url>
 
     <licenses>
         <license>
@@ -21,14 +21,14 @@
         <developer>
             <name>Jesper Blomquist</name>
             <email>jeppe.blomquist@gmail.com</email>
-            <url>https://github.com/io.github.jebl01</url>
+            <url>https://github.com/jebl01</url>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/io.github.jebl01/puncher.git</connection>
-        <developerConnection>scm:git:ssh://github.com:io.github.jebl01/puncher.git</developerConnection>
-        <url>https://github.com/io.github.jebl01/puncher</url>
+        <connection>scm:git:git://github.com/jebl01/puncher.git</connection>
+        <developerConnection>scm:git:ssh://github.com:jebl01/puncher.git</developerConnection>
+        <url>https://github.com/jebl01/puncher</url>
     </scm>
 
     <properties>
