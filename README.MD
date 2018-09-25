@@ -25,7 +25,7 @@ An other way is to write some regexp code to accomplish the same.
 By using *Puncher* you can do this without breaking a sweat;
 
 ```java
-final Puncher puncher = Punchers.forPattern("^(?<id>[^:]+):(?<version>[^:]+)$");
+final Puncher puncher = Puncher.forPattern("^(?<id>[^:]+):(?<version>[^:]+)$");
 final Optional<String> idOpt = puncher.punch("123:4", "id");
 
 assertTrue(idOpt.isPresent());
@@ -37,7 +37,7 @@ It becomes even more tricky if the *key* comes in different formats. Say for exa
 The *Puncher* code to solve this looks like;
 
 ```java
-final Puncher puncher = Punchers.forPattern("^(?<id>[^:]+):(?<version>[^:]+)$")
+final Puncher puncher = Puncher.forPattern("^(?<id>[^:]+):(?<version>[^:]+)$")
         .then(Punchers.forPattern("^(?<type>[^:]+):(?<id>[^:]+):(?<version>[^:]+)$"));
 
 final Optional<String> idOptShort = puncher.punch("123:4", "id");
