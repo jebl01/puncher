@@ -14,7 +14,7 @@ Puncher is configured with patterns containing named groups. Punchers can also b
 <dependency>
     <groupId>io.github.jebl01</groupId>
     <artifactId>puncher</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
 </dependency>
 ```
 
