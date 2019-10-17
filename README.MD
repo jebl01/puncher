@@ -2,7 +2,7 @@
 *A regex based string parser*
 
 Parsing strings can be done in a million ways, and often are. Even within the same project.
-This small util is an attempt to unite behind one way of doing things.
+This small utility is an attempt to unite behind one way of doing things.
 Regular expressions have been used since the dawn of days, and even if I have had my strong doubts about them, I must confess that they can be quite handy.
 
 Puncher is configured with patterns containing named groups. Punchers can also be combined into a composite puncher, to break regex up into more manageable parts.
@@ -26,7 +26,7 @@ By using *Puncher* you can do this without breaking a sweat;
 
 ```java
 final Puncher puncher = Puncher.forPattern("^(?<id>[^:]+):(?<version>[^:]+)$");
-final Optional<String> idOpt = puncher.punch("123:4", "id");
+final Optional<String> idOpt = puncher.punch("123:4", "id").findFirst();
 
 assertTrue(idOpt.isPresent());
 idOpt.ifPresent(id -> assertEquals("123", id));
@@ -34,14 +34,14 @@ idOpt.ifPresent(id -> assertEquals("123", id));
 
 It becomes even more tricky if the *key* comes in different formats. Say for example that you have evolved your system to include a *type* in the key, like `<type>:<id>:<version>`.
 
-The *Puncher* code to solve this looks like;
+The *Puncher* code to solve this looks like (using a [composit puncher](composite-punchers));
 
 ```java
 final Puncher puncher = Puncher.forPattern("^(?<id>[^:]+):(?<version>[^:]+)$")
-        .then(Punchers.forPattern("^(?<type>[^:]+):(?<id>[^:]+):(?<version>[^:]+)$"));
+        .or(Punchers.forPattern("^(?<type>[^:]+):(?<id>[^:]+):(?<version>[^:]+)$"));
 
-final Optional<String> idOptShort = puncher.punch("123:4", "id");
-final Optional<String> idOptLong = puncher.punch("book:123:4", "id");
+final Optional<String> idOptShort = puncher.punch("123:4", "id").findFirst();
+final Optional<String> idOptLong = puncher.punch("book:123:4", "id").findFirst();
 
 assertTrue(idOptShort.isPresent());
 idOptShort.ifPresent(id -> assertEquals("123", id));
@@ -49,5 +49,18 @@ idOptShort.ifPresent(id -> assertEquals("123", id));
 assertTrue(idOptLong.isPresent());
 idOptLong.ifPresent(id -> assertEquals("123", id));
 ```
+#### Pattern flags
+`Puncher.forPattern` comes with an overload accepting standard Pattern flags, e.g.:
+```java
+forPattern("^Name: (?<name>\\w+)", Pattern.MULTILINE);
+```
+ 
+#### Composite punchers
+There are two flavours of *composite punchers*, *OrPuncher* and *AndPuncher*.
+The first type will only yield matches from the first puncher providing one, while the second will return matches from both.
+
+You can combine punchers in many ways to yield different results.
+
+See `PuncherTest` for more examples!
 
 And that's about it!
